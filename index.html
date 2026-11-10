@@ -1,0 +1,72 @@
+def hitung_total_belanja():
+    print("=" * 40)
+    print("       PROGRAM KASIR SEDERHANA")
+    print("=" * 40)
+
+    keranjang = []
+    total_kotor = 0
+
+    while True:
+        nama = input("\nMasukkan nama barang: ")
+
+        try:
+            harga = float(input("Masukkan harga barang (Rp): "))
+            jumlah = int(input("Masukkan jumlah barang: "))
+
+            if harga < 0 or jumlah <= 0:
+                print("Harga atau jumlah tidak valid!")
+                continue
+
+        except ValueError:
+            print("Input salah! Masukkan angka yang benar.")
+            continue
+
+        subtotal = harga * jumlah
+        total_kotor += subtotal
+
+        keranjang.append({
+            "nama": nama,
+            "harga": harga,
+            "jumlah": jumlah,
+            "subtotal": subtotal
+        })
+
+        print("Subtotal: Rp", format(subtotal, ",.0f"))
+
+        tambah = input("Tambah barang lagi? (y/n): ").lower()
+
+        if tambah != "y":
+            break
+
+    print("\n" + "=" * 40)
+    print("          STRUK BELANJA")
+    print("=" * 40)
+
+    for barang in keranjang:
+        print("Nama     :", barang["nama"])
+        print("Harga    : Rp", format(barang["harga"], ",.0f"))
+        print("Jumlah   :", barang["jumlah"])
+        print("Subtotal : Rp", format(barang["subtotal"], ",.0f"))
+        print("-" * 40)
+
+    print("Total kotor: Rp", format(total_kotor, ",.0f"))
+
+    diskon = float(input("\nMasukkan diskon (%): "))
+
+    if diskon < 0 or diskon > 100:
+        print("Diskon tidak valid!")
+        return
+
+    potongan = total_kotor * diskon / 100
+    total_akhir = total_kotor - potongan
+
+    print("\n" + "=" * 40)
+    print("Total kotor : Rp", format(total_kotor, ",.0f"))
+    print("Diskon      :", diskon, "%")
+    print("Potongan    : Rp", format(potongan, ",.0f"))
+    print("TOTAL BAYAR : Rp", format(total_akhir, ",.0f"))
+    print("=" * 40)
+    print("       TERIMA KASIH TELAH BERBELANJA!")
+
+
+hitung_total_belanja()
